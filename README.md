@@ -57,3 +57,31 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Simple SDC Structure For UI Intern
+
+This project now includes one beginner-friendly Single Directory Component (SDC):
+
+```text
+src/
+  app/
+    components/
+      profile-card/
+        profile-card.ts
+        profile-card.html
+        profile-card.css
+```
+
+Use this rule for UI-only work:
+
+- Keep one component in one folder.
+- Keep logic in `.ts`.
+- Keep markup in `.html`.
+- Keep styles in `.css`.
+- Start with static demo data before learning APIs and services.
+
+Recommended order for the intern:
+
+1. Edit text in `profile-card.ts`.
+2. Change layout in `profile-card.html`.
+3. Change colors and spacing in `profile-card.css`.

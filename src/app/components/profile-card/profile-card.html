@@ -1,0 +1,33 @@
+<!-- Main card container for the component UI. -->
+<section class="card">
+  <!-- Small heading used like a label above the title. -->
+  <p class="eyebrow">Simple SDC Example</p>
+  <!-- {{ }} is Angular interpolation. It prints data from profile-card.ts. -->
+  <h1>{{ intern.name }}</h1>
+  <p class="role">{{ intern.role }}</p>
+  <p class="summary">
+    {{ intern.summary }}
+  </p>
+
+  <!-- First content area explains what file the intern should edit. -->
+  <div class="content-block">
+    <h2>What to edit first</h2>
+    <ul>
+      <li>Update text in <code>profile-card.ts</code></li>
+      <li>Change layout in <code>profile-card.html</code></li>
+      <li>Style UI in <code>profile-card.css</code></li>
+    </ul>
+  </div>
+
+  <!-- Second content area shows a list rendered from TypeScript data. -->
+  <div class="content-block">
+    <h2>Current skills</h2>
+    <ul>
+      <!-- @for loops through each skill in the array and prints one <li> per item. -->
+      <!-- track skill helps Angular identify each item efficiently while rendering. -->
+      @for (skill of intern.skills; track skill) {
+        <li>{{ skill }}</li>
+      }
+    </ul>
+  </div>
+</section>
