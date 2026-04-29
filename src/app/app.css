@@ -1,13 +1,14 @@
-/* :host means "this Angular component itself". */
 :host {
-  /* display: block makes the root component behave like a normal block element. */
   display: block;
-  /* min-height keeps the app full height even with small content. */
   min-height: 100dvh;
 }
 
 .app-shell {
-  /* This wrapper gives the page breathing space around the component. */
+  display: grid;
+  place-items: center;
   min-height: 100dvh;
-  padding: 24px;
+  padding: 24px 16px;
+  background:
+    radial-gradient(circle at top, rgba(109, 255, 168, 0.12), transparent 26%),
+    linear-gradient(180deg, #1b1f1e 0%, #090a0a 100%);
 }

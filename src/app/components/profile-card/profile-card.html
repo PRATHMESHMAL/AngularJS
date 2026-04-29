@@ -1,33 +1,91 @@
-<!-- Main card container for the component UI. -->
-<section class="card">
-  <!-- Small heading used like a label above the title. -->
-  <p class="eyebrow">Simple SDC Example</p>
-  <!-- {{ }} is Angular interpolation. It prints data from profile-card.ts. -->
-  <h1>{{ intern.name }}</h1>
-  <p class="role">{{ intern.role }}</p>
-  <p class="summary">
-    {{ intern.summary }}
-  </p>
+<section class="search-screen">
+  <header class="search-shell">
+    <div class="search-bar">
+      <button type="button" class="icon-button" aria-label="Home">
+        <span class="icon-home"></span>
+      </button>
+      <span class="icon-search"></span>
+      <span class="query-text">bairan</span>
+      <button type="button" class="plain-icon" aria-label="Clear search">✕</button>
+      <span class="divider"></span>
+      <button type="button" class="icon-button bag" aria-label="Open library">
+        <span class="icon-bag"></span>
+      </button>
+    </div>
 
-  <!-- First content area explains what file the intern should edit. -->
-  <div class="content-block">
-    <h2>What to edit first</h2>
-    <ul>
-      <li>Update text in <code>profile-card.ts</code></li>
-      <li>Change layout in <code>profile-card.html</code></li>
-      <li>Style UI in <code>profile-card.css</code></li>
-    </ul>
-  </div>
-
-  <!-- Second content area shows a list rendered from TypeScript data. -->
-  <div class="content-block">
-    <h2>Current skills</h2>
-    <ul>
-      <!-- @for loops through each skill in the array and prints one <li> per item. -->
-      <!-- track skill helps Angular identify each item efficiently while rendering. -->
-      @for (skill of intern.skills; track skill) {
-        <li>{{ skill }}</li>
+    <div class="filter-row">
+      @for (filter of filters; track filter) {
+        <button
+          type="button"
+          class="filter-pill"
+          [class.active]="activeFilter === filter"
+          (click)="setFilter(filter)">
+          {{ filter }}
+        </button>
       }
-    </ul>
-  </div>
+    </div>
+  </header>
+
+  <section class="top-result">
+    <img class="cover-art large" [src]="track.artwork" [alt]="track.title + ' cover art'" />
+    <div class="result-copy">
+      <h1>{{ track.title }}</h1>
+      <p>{{ track.subtitle }}</p>
+    </div>
+    <div class="top-actions">
+      <button type="button" class="plus-button" aria-label="Save track">⊕</button>
+      <button
+        type="button"
+        class="play-button"
+        [disabled]="!previewReady"
+        (click)="togglePlayback()"
+        [attr.aria-label]="isPlaying ? 'Pause song preview' : 'Play song preview'">
+        <span [class.pause-shape]="isPlaying" [class.play-shape]="!isPlaying"></span>
+      </button>
+    </div>
+  </section>
+
+  <p class="status-note">{{ statusText }}</p>
+
+  <section class="results-list">
+    @for (item of results; track item.title) {
+      <article class="result-row">
+        <img class="cover-art" [src]="item.artwork" [alt]="item.title + ' artwork'" />
+        <div class="result-text">
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.subtitle }}</p>
+        </div>
+        <span class="result-tag">{{ item.tag }}</span>
+        <button type="button" class="row-plus" aria-label="Add item">⊕</button>
+      </article>
+    }
+  </section>
+
+  <footer class="player-footer">
+    <div>
+      <strong>{{ track.title }}</strong>
+      <span>{{ track.artist }} • {{ track.duration }}</span>
+    </div>
+    <button type="button" class="spotify-link" (click)="openSpotifyTrack()">
+      Open Full Song
+    </button>
+  </footer>
+
+  <section class="spotify-embed-card">
+    <p class="embed-label">Spotify Player</p>
+    <iframe
+      [src]="safeSpotifyEmbedUrl"
+      title="Spotify player for Bairan by Banjaare"
+      loading="lazy"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </section>
+
+  <audio
+    #songPreview
+    [src]="track.previewUrl"
+    preload="metadata"
+    (ended)="handleEnded()">
+  </audio>
 </section>
